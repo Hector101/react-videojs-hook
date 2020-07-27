@@ -68,6 +68,7 @@ export function useVideojs({
   let player: VideoJsPlayer;
 
   const previousSrc = usePrevious(src);
+  const previousAutoplay = usePrevious(autoplay);
 
   useEffect(() => {
     if ((previousSrc !== src) && !previousSrc) {
@@ -76,8 +77,17 @@ export function useVideojs({
     }
     if((previousSrc !== src) && previousSrc) {
       _changeSrc();
+      _unregisterEvents();
+      _initPlayerEvents();
     }
-  }, [src]);
+
+    if((previousAutoplay !== autoplay) && (previousAutoplay !== undefined)) {
+      _changeAutoplay();
+      _unregisterEvents();
+      _initPlayerEvents();
+    }
+  
+  }, [src, autoplay]);
 
   const _initPlayer = () => {
     player = videojs(vjsRef.current, props);
@@ -88,6 +98,10 @@ export function useVideojs({
   const _changeSrc = () => {
     player = videojs(vjsRef.current);
     player.src(src);
+  };
+
+  const _changeAutoplay = () => {
+    player = videojs(vjsRef.current);
     player.autoplay(autoplay);
   };
 
@@ -146,6 +160,15 @@ export function useVideojs({
         onEnd(player.currentTime());
       }
     });
+  };
+
+  const _unregisterEvents = () => {
+    player.off('play');
+    player.off('pause');
+    player.off('timeupdate');
+    player.off('seeking');
+    player.off('seeked');
+    player.off('ended');
   };
 
   const videoClassNames = `video-js ${className} ${props.bigPlayButtonCentered ? 'vjs-big-play-centered' : ''}`;
