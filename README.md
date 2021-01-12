@@ -80,9 +80,7 @@ Param | Description | Required | Default
 `textTrackSettings` |  Manipulate Text Tracks settings. | `false`
 `defaultVolume` | Video player initial volume | `false` | `false`
 `responsive` | Set responsive mode to add and remove classes based on its size breakpoints | `false` | `false`
-`responsive` | Set responsive mode to add and remove classes based on its size breakpoints | `false` | `false`
 `width` | Set player width | `false` | `auto`
-`height` | Set player height | `false` | `auto`
 `height` | Set player height | `false` | `auto`
 `bigPlayButton` | Set initial play button that shows before the video has played | `false` | `true`
 `onReady` | Triggered when player is loaded and ready to play | `false`
