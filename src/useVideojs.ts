@@ -46,6 +46,7 @@ type Props = {
   onSeeking?: (currentTime: number) => void;
   onSeeked?: (position: number, currentTime: number) => void;
   onEnd?: (currentTime?: number) => void;
+  onError?: (e: videojs.MediaError) => void; 
   className?: string;
 };
 
